@@ -19,8 +19,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/chenzhaoxuan0/datadog-mcp"
-Repository = "https://github.com/chenzhaoxuan0/datadog-mcp"
+Homepage = "https://github.com/dedalus-labs/datadog-mcp"
+Repository = "https://github.com/dedalus-labs/datadog-mcp"
 
 [dependency-groups]
 test = [
