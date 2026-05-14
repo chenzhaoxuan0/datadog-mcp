@@ -227,7 +227,7 @@ async def list_incidents(
     if err:
         return ListIncidentsResult(success=False, error=err)
 
-    incidents = body.get("data", []) if isinstance(body, dict) else []
+    incidents = [i for i in (body.get("data", []) if isinstance(body, dict) else []) if isinstance(i, dict)]
     return ListIncidentsResult(
         success=True,
         incidents=[IncidentSummary.from_api(i) for i in incidents],

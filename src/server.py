@@ -41,4 +41,4 @@ async def main() -> None:
         list_incidents,
         list_slos,
     )
-    await server.serve(8080)
+    await server.serve(port=8080)
