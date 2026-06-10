@@ -61,7 +61,7 @@ async def _dispatch(
     method: HttpMethod = HttpMethod.GET,
     body: dict | None = None,
     query: dict | None = None,
-) -> tuple[dict, str | None]:
+) -> tuple[Any, str | None]:
     if query:
         qs = urlencode({k: v for k, v in query.items() if v is not None})
         if qs:
@@ -77,7 +77,12 @@ async def _dispatch(
     ctx = get_context()
     req = HttpRequest(method=method, path=path, body=body, headers=headers)
     resp = await ctx.dispatch(_CONN_NAME, req)
-    return resp.body or {}, resp.error
+    if resp.success and resp.response is not None:
+        raw = resp.response.body
+        if resp.response.status >= 400:
+            return {}, f"Datadog API error ({resp.response.status}): {raw}"
+        return raw if raw is not None else {}, None
+    return {}, resp.error.message if resp.error else "Datadog request failed"
 
 
 # --- Tools ---
