@@ -24,7 +24,7 @@ from datadog.types import (
     SLOSummary,
 )
 
-_CONN_NAME = "datadog"
+_CONN_NAME = os.getenv("MCP_SERVER_SLUG", "Zx/datadog-mcp").replace("/", "-")
 
 _SITE_MAP = {
     "datadoghq.com": "https://api.datadoghq.com",
